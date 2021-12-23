@@ -12,6 +12,9 @@ const queue = new Map();
 // COMMANDS
 const enqueue = require('./commands/enqueue').enqueue
 const play = require('./commands/play').play
+const pause = require('./commands/pause').pause
+const resume = require('./commands/resume').resume
+const showQueue = require('./commands/queue').showQueue
 
 // LISTENERS
 client.once('ready', () => {
@@ -48,6 +51,18 @@ client.on('message', async message => {
             case 'play':
                 enqueue(message, serverQueue, queue, loop);
                 break;
+
+            case 'pause':
+                pause(message, serverQueue);
+                break;
+
+            case 'resume':
+                resume(message, serverQueue);
+                break;
+
+                case 'queue':
+                    showQueue(message, serverQueue, queue);
+                    break;                
         }
     }
 });
